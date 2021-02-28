@@ -59,6 +59,8 @@ public class AuthController extends HttpController {
 
             user.setPassword(request.password);
 
+            user.save();
+
             response.success = true;
         }
 
