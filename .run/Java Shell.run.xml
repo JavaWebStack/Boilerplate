@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Java Shell" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="org.example.boilerplate.ExampleWebApplication" />
+    <module name="boilerplate" />
+    <option name="PROGRAM_PARAMETERS" value="sh" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
