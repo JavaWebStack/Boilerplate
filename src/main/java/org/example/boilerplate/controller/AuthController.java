@@ -52,6 +52,7 @@ public class AuthController extends HttpController {
 
         User testUser = Repo.get(User.class).where("name", request.userName).orWhere("eMail", request.eMail).first();
 
+        
         if (testUser == null) {
             User user = new User();
             user.name = request.userName;
