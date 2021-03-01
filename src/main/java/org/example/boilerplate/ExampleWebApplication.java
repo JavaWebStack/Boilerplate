@@ -7,7 +7,9 @@ import org.javawebstack.command.CommandSystem;
 import org.javawebstack.framework.HttpController;
 import org.javawebstack.framework.WebApplication;
 import org.javawebstack.framework.config.Config;
+import org.javawebstack.framework.util.IO;
 import org.javawebstack.httpserver.HTTPServer;
+import org.javawebstack.httpserver.util.ResourceFileProvider;
 import org.javawebstack.injector.Injector;
 import org.javawebstack.orm.ORM;
 import org.javawebstack.orm.ORMConfig;
@@ -23,7 +25,7 @@ public class ExampleWebApplication extends WebApplication {
     }
 
     protected void setupInjection(Injector injector) {
-        injector.setInstance(TemplateEngine.class, new GSPEngine(name -> "/views/"+name));
+        injector.setInstance(TemplateEngine.class, new GSPEngine(name -> IO.readTextResource(getClass().getClassLoader(), "views/"+name)));
     }
 
     protected void setupModels(SQL sql) throws ORMConfigurationException {
@@ -34,13 +36,12 @@ public class ExampleWebApplication extends WebApplication {
 
     protected void setupServer(HTTPServer httpServer) {
         httpServer.exceptionHandler((exchange, throwable)->{
-            exchange.status(500);
             return new ExceptionResponse(throwable);
         });
 
         httpServer.controller(HttpController.class, AuthController.class.getPackage());
 
-        httpServer.staticResourceDirectory("/", getClass().getClassLoader(), "static");
+        httpServer.staticResourceDirectory("/static", getClass().getClassLoader(), "static");
     }
 
     protected void setupCommands(CommandSystem commandSystem) {

@@ -1,0 +1,37 @@
+* {
+    font-family: sans-serif;
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+}
+
+#login {
+    width: 500px;
+    max-width: 98%;
+    margin: 30px auto auto;
+    border: #00000011 solid 2px;
+    border-radius: 4px;
+    padding: 20px;
+}
+
+#login input {
+    display: block;
+    width: 100%;
+    border: 2px #00000022 solid;
+    padding: 10px;
+    border-radius: 7px;
+    margin-top: 10px;
+}
+
+#login .button {
+    padding: 10px 10px;
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    background: #60A8FD;
+    color: #FFF;
+    border: none;
+    border-radius: 4px;
+    font-size: 17px;
+    cursor: pointer;
+}

@@ -25,14 +25,16 @@ public class AuthController extends HttpController {
 
     @Get("/login")
     public String loginPage() throws TemplateException {
-        return templateEngine.render("login", new HashMap<>());
+        return templateEngine.render("login", new HashMap(){{
+            put("hello", "Hello world!");
+        }});
     }
 
     @Post("/login")
     public LoginResponse login(@Body LoginRequest request){
         LoginResponse loginResponse = new LoginResponse();
 
-        User user = Repo.get(User.class).where("name", request.userName).first();
+        User user = Repo.get(User.class).where("name", request.username).first();
 
         if (user != null && user.checkPassword(request.password)) {
             loginResponse.success = true;
@@ -43,20 +45,23 @@ public class AuthController extends HttpController {
 
     @Get("/register")
     public String registerPage() throws TemplateException {
-        return templateEngine.render("login", new HashMap<>());
+        return templateEngine.render("register", new HashMap<>());
     }
 
-    @Post("/login")
+    @Post("/register")
     public RegisterResponse register(@Body RegisterRequest request){
         RegisterResponse response = new RegisterResponse();
 
-        User testUser = Repo.get(User.class).where("name", request.userName).orWhere("eMail", request.eMail).first();
+        User testUser = Repo.get(User.class).where("name", request.username).orWhere("eMail", request.email).first();
 
         
         if (testUser == null) {
             User user = new User();
-            user.name = request.userName;
-            user.eMail = request.eMail;
+            System.out.println(
+                    request.username
+            );
+            user.name = request.username;
+            user.eMail = request.email;
 
             user.setPassword(request.password);
 
