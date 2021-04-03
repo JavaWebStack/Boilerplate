@@ -35,9 +35,7 @@ public class ExampleWebApplication extends WebApplication {
     }
 
     protected void setupServer(HTTPServer httpServer) {
-        httpServer.exceptionHandler((exchange, throwable)->{
-            return new ExceptionResponse(throwable);
-        });
+        httpServer.exceptionHandler((exchange, throwable)-> new ExceptionResponse(throwable));
 
         httpServer.controller(HttpController.class, AuthController.class.getPackage());
 
