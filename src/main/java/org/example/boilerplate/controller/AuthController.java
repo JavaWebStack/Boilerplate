@@ -1,5 +1,6 @@
 package org.example.boilerplate.controller;
 
+import org.example.boilerplate.ExampleWebApplication;
 import org.example.boilerplate.model.User;
 import org.example.boilerplate.requests.auth.LoginRequest;
 import org.example.boilerplate.requests.auth.RegisterRequest;
@@ -10,7 +11,6 @@ import org.javawebstack.httpserver.router.annotation.Body;
 import org.javawebstack.httpserver.router.annotation.Get;
 import org.javawebstack.httpserver.router.annotation.PathPrefix;
 import org.javawebstack.httpserver.router.annotation.Post;
-import org.javawebstack.injector.Inject;
 import org.javawebstack.orm.Repo;
 import org.javawebstack.templating.TemplateEngine;
 import org.javawebstack.templating.TemplateException;
@@ -20,12 +20,11 @@ import java.util.HashMap;
 @PathPrefix("/auth")
 public class AuthController extends HttpController {
 
-    @Inject
-    TemplateEngine templateEngine;
+
 
     @Get("/login")
     public String loginPage() throws TemplateException {
-        return templateEngine.render("login", new HashMap(){{
+        return ExampleWebApplication.getInstance().getTemplatingEngine().render("login", new HashMap(){{
             put("hello", "Hello world!");
         }});
     }
@@ -45,7 +44,7 @@ public class AuthController extends HttpController {
 
     @Get("/register")
     public String registerPage() throws TemplateException {
-        return templateEngine.render("register", new HashMap<>());
+        return ExampleWebApplication.getInstance().getTemplatingEngine().render("register", new HashMap<>());
     }
 
     @Post("/register")
@@ -54,7 +53,7 @@ public class AuthController extends HttpController {
 
         User testUser = Repo.get(User.class).where("name", request.username).orWhere("eMail", request.email).first();
 
-        
+
         if (testUser == null) {
             User user = new User();
             System.out.println(

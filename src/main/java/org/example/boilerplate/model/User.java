@@ -1,10 +1,10 @@
 package org.example.boilerplate.model;
 
-import org.javawebstack.framework.util.BCrypt;
 import org.javawebstack.orm.Model;
 import org.javawebstack.orm.annotation.Column;
 import org.javawebstack.orm.annotation.Dates;
 import org.javawebstack.orm.annotation.SoftDelete;
+import org.javawebstack.webutils.crypt.BCrypt;
 
 import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
